@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <title th:text="${name}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link th:href="@{https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700}" rel="stylesheet">
+	<link th:href="@{https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700}" rel="stylesheet">
+	<link th:href="@{https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff}" rel="stylesheet">
+
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/open-iconic-bootstrap.min.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/animate.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/owl.carousel.min.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/owl.theme.default.min.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/magnific-popup.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/aos.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/ionicons.min.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/bootstrap-datepicker.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/jquery.timepicker.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/flaticon.css'}">
+	  <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/fonts/icomoon-custom/Font/demo-files/demo.css'}">
+	<link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/profile/css/style.css'}">
+
+	  <style>
+		  .icon1 {
+			  font-family: 'IcoMoon-Free' !important;
+			  speak: none;
+			  font-style: normal;
+			  font-weight: normal;
+			  font-variant: normal;
+			  text-transform: none;
+			  line-height: 1;
+			  letter-spacing: 0;
+			  -webkit-font-feature-settings: "liga";
+			  -moz-font-feature-settings: "liga=1";
+			  -moz-font-feature-settings: "liga";
+			  -ms-font-feature-settings: "liga" 1;
+			  -o-font-feature-settings: "liga";
+			  font-feature-settings: "liga";
+			  -webkit-font-smoothing: antialiased;
+			  -moz-osx-font-smoothing: grayscale;
+		  }
+
+		  .services .icon1 {
+			  padding: 5px;
+			  background: #04D2C8;
+			  cursor: pointer;
+			  border: none;
+			  color: #fff;
+			  -webkit-transition: 0.5s ease all;
+			  -moz-transition: 0.5s ease all;
+			  -o-transition: 0.5s ease all;
+			  transition: 0.5s ease all;
+			  margin-left: 80%;
+			  border: 1px solid #04D2C8;
+		  }
+		  .services .icon1:hover {
+			  background: transparent;
+			  color: #04D2C8;
+			  -webkit-transition: 0.5s ease all;
+			  -moz-transition: 0.5s ease all;
+			  -o-transition: 0.5s ease all;
+			  transition: 0.5s ease all;
+		  }
+		  input[type="submit"] {
+			  background:  #04D2C8 none repeat scroll 0 0;
+			  border: solid 1px #04D2C8;
+			  color: #fff;
+			  font-size: 14px;
+			  height: 48px;
+			  padding: 0 23px;
+			  width: 100%;
+			  border-radius: 0px;
+			  cursor: pointer;
+			  -webkit-transition: 0.5s ease all;
+			  -moz-transition: 0.5s ease all;
+			  -o-transition: 0.5s ease all;
+			  transition: 0.5s ease all;
+			  box-shadow: none;
+		  }
+		  input[type="submit"]:hover {
+			  background: transparent;
+			  color: #04D2C8;
+			  -webkit-transition: 0.5s ease all;
+			  -moz-transition: 0.5s ease all;
+			  -o-transition: 0.5s ease all;
+			  transition: 0.5s ease all;
+		  }
+		  input[type="text"] {
+			  background:  #f1f1f1;
+			  border: 0 none;
+			  color: #777777;
+			  font-size: 14px;
+			  height: 48px;
+			  padding: 0 23px;
+			  width: 100%;
+			  border-radius: 0px;
+			  box-shadow: none;
+		  }
+	  </style>
+
+  </head>
+  <body>
+
+	<div id="colorlib-page">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+			<h1 id="colorlib-logo">
+				<form th:action="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/imageUpload'}" method="POST">
+					<span id="imageSubmitButton"></span>
+					<div class="img" th:style="'background-image: url('+@{'data:image/jpeg;base64,'+${image}}+');'">
+						<input type="file" class="inputfile" name="file" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" required="true" multiple />
+						<label for="your_picture">
+							<figure>
+								<img src="" alt="" class="your_picture_image img" style="cursor: pointer;">
+							</figure>
+						</label>
+					</div><span th:text="${name}"></span>
+				</form>
+			</h1>
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li><a th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/home'}">Home</a></li>
+					<li><a th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/about'}">About</a></li>
+					<li><a th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/courses'}">Courses</a></li>
+					<li><a th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/performance'}">Performance</a></li>
+					<li class="colorlib-active"><a th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername} + '/contact'}">Contact & Location</a></li>
+				</ul>
+            </nav>
+
+            <div class="colorlib-footer">
+            </div>
+        </aside> <!-- END COLORLIB-ASIDE -->
+		<div id="colorlib-main">
+			<section class="ftco-section contact-section">
+				<div class="container">
+					<div class="row">
+
+						<div class="col-md-3 d-flex align-self-stretch ftco-animate">
+							<div class="media block-6 services py-4 d-block">
+								<span id="homeEditButton"></span>
+								<span id="homeCancelButton"></span>
+								<div class="d-flex justify-content-start">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="icon-home"></span>
+									</div>
+								</div>
+								<div class="media-body p-2 mt-2">
+									<h3 class="heading mb-3">Home Address</h3>
+									<div id="homeEditBox"></div>
+									<p id="homeText" th:text="${homeAddress}"></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3 d-flex align-self-stretch ftco-animate">
+							<div class="media block-6 services py-4 d-block">
+								<span id="currentEditButton"></span>
+								<span id="currentCancelButton"></span>
+								<div class="d-flex justify-content-start">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="icon-office"></span>
+									</div>
+								</div>
+								<div class="media-body p-2 mt-2">
+									<h3 class="heading mb-3">Current Address</h3>
+									<div id="currentEditBox"></div>
+									<p id="currentText" th:text="${currentAddress}"></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3 d-flex align-self-stretch ftco-animate">
+							<div class="media block-6 services py-4 d-block">
+								<span id="emailEditButton"></span>
+								<span id="emailCancelButton"></span>
+								<div class="d-flex justify-content-start">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="icon-envelop"></span>
+									</div>
+								</div>
+								<div class="media-body p-2 mt-2">
+									<h3 class="heading mb-3">E-mail</h3>
+									<div id="emailEditBox"></div>
+									<p id="emailText" th:text="${email}"></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3 d-flex align-self-stretch ftco-animate">
+							<div class="media block-6 services py-4 d-block">
+								<span id="phoneEditButton"></span>
+								<span id="phoneCancelButton"></span>
+								<div class="d-flex justify-content-start">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="icon-phone"></span>
+									</div>
+								</div>
+								<div class="media-body p-2 mt-2">
+									<h3 class="heading mb-3">Mobile</h3>
+									<div id="phoneEditBox"></div>
+									<p id="phoneText" th:text="${phone}"></p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 d-flex align-self-stretch ftco-animate map">
+							<iframe id="google_map" style="width: 100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk?output=embed"></iframe>
+						</div>
+					</div>
+
+
+				</div>
+			</section>
+		</div><!-- END COLORLIB-MAIN -->
+	</div><!-- END COLORLIB-PAGE -->
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery-migrate-3.0.1.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/popper.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/bootstrap.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.easing.1.3.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.waypoints.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.stellar.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/owl.carousel.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.magnific-popup.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/aos.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.animateNumber.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/bootstrap-datepicker.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/jquery.timepicker.min.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/scrollax.min.js'}"></script>
+	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/google-map.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/main.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/textEdit.js'}"></script>
+	<script th:src="@{${cssLinkPrefix} + 'js/profile/js/validate.js'}"></script>
+    
+  </body>
+</html>

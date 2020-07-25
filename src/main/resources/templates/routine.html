@@ -1,0 +1,727 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>POCKET MBSTU</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{${cssLinkPrefix} + 'css/img/favicon.png'}">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/owl.carousel.min.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/magnific-popup.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/themify-icons.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/nice-select.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/flaticon.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/gijgo.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/animate.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/slicknav.css'}">
+    <link rel="stylesheet" th:href="@{${cssLinkPrefix} + 'css/css/style.css'}">
+    <style>
+        .boxed-btn {
+         .boxed-btn {
+            padding: 0;
+            height: 48px;
+            width: 100%;
+        }
+        .boxed-btn1 {
+            background-color: #04D2C8;
+            color: #fff;
+        }
+        .boxed-btn4 {
+            background-color: #fff;
+            color: #04D2C8;
+        }
+        .boxed-btn4:hover {
+            background-color: #fff;
+            color: #04D2C8;
+        }
+        .form-group select {
+            border: 1px solid #e5e6e9;
+            border-radius: 0px;
+            height: 48px;
+            width: 100%;
+            padding-left: 18px;
+            font-size: 16px;
+            background: transparent;
+            color: #999999;
+        }
+        .form-group select:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="header-area ">
+        <div id="sticky-header" class="main-header-area">
+            <div class="container-fluid p-0">
+                <div class="row align-items-center no-gutters">
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="logo-img">
+                            <a th:href="@{/}">
+                                <h1>POCKET MBSTU</h1>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7">
+                        <div class="main-menu  d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a th:href="@{/}">home</a></li>
+                                    <li><a th:href="@{/search}">Search</a></li>
+                                    <li><a th:href="@{/contact}">Contact</a></li>
+                                    <li><a class="active" th:href="@{/routine}">Routine</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                        <div class="log_chat_area d-flex align-items-center">
+                            <a th:href="@{${session.loginLogoutUrl}}" class="login">
+                                <div th:remove="tag" th:utext="${session.loginLogoutIcon}"></div>
+                                <span th:text="${session.loginLogoutText}"></span>
+                            </a>
+                            <div class="live_chat_btn">
+                                <a class="boxed_btn_account" th:style="'background-image: url('+@{'data:image/jpeg;base64,'+${session.loginImage}}+');'" th:href="@{'/' + ${session.loginType} + '/account/' + ${session.loginUsername}}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="bradcam_area breadcam_bg overlay2">
+    <h3>Routine</h3>
+</div>
+
+<div class="container">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <div class="form-group">
+                <button type="submit" class="button boxed-btn boxed-btn1" name="button" onclick="SwitchToView()">View Routine</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <button type="submit" class="button boxed-btn boxed-btn4" name="button" onclick="SwitchToPlace()">Place your course to Routine</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="contact-section">
+
+    <div class="container">
+
+        <div class="col-12">
+            <h2 class="contact-title" id="routineTitle">View routine</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-contact contact_form" action="" method="POST" id="placeRoutineForm" hidden>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="dept" name="dept" onchange="Semester()" required>
+                                    <option value="Course For" selected="true" disabled="true">Course For</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="semester" name="semester" onchange="CourseCode()" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="courseCode" name="courseCode" onchange="Day()" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="day" name="day" onchange="StartTime()" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="startTime" name="startTime" onchange="EndTime()" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="endTime" name="endTime" onchange="RoomNo()" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <select id="roomNo" name="roomNo" required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="submit" class="button boxed-btn" name="button" value="routineSubmit">Place</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-contact contact_form" action="" method="POST" id="viewRoutineForm">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <select id="dept1" name="dept" onchange="Semester1()" required>
+                                    <option value="Department" selected="true" disabled="true">Department</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <select id="semester1" name="semester"required>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button type="submit" class="button boxed-btn" name="button" value="routineSearch">Place</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer footer_bg_1">
+    <div class="copy-right_text">
+        <div class="container">
+            <div class="footer_border"></div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <p class="copy_right text-center">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Developed By <a href="https://www.facebook.com/RakibNr30">Abdur Rakib</a> | POCKETmbstu</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+
+    function SwitchToPlace() {
+        document.getElementById("placeRoutineForm").hidden = false;
+        document.getElementById("viewRoutineForm").hidden = true;
+        document.getElementById("routineTitle").innerHTML = "Place your course to routine";
+        let btn1 = document.querySelector(".boxed-btn1");
+        btn1.style.backgroundColor = "transparent";
+        btn1.style.color = "#04D2C8";
+
+        let btn2 = document.querySelector(".boxed-btn4");
+        btn2.style.backgroundColor = "#04D2C8";
+        btn2.style.color = "#fff";
+    }
+
+    function SwitchToView() {
+        document.getElementById("placeRoutineForm").hidden = true;
+        document.getElementById("viewRoutineForm").hidden = false;
+        document.getElementById("routineTitle").innerHTML = "View routine";
+        let btn1 = document.querySelector(".boxed-btn4");
+        btn1.style.backgroundColor = "transparent";
+        btn1.style.color = "#04D2C8";
+
+        let btn2 = document.querySelector(".boxed-btn1");
+        btn2.style.backgroundColor = "#04D2C8";
+        btn2.style.color = "#fff";
+    }
+
+    var department1 = document.getElementById("dept1")
+    var department = document.getElementById("dept");
+    department.innerHTML = "";
+    department1.innerHTML = "";
+
+    var deptArray = [
+        "Course For",
+        "CSE",
+        "ICT",
+        "TE",
+        "Chemistry",
+        "Mathematics",
+        "Physics",
+        "Statistics",
+        "Pharmacy",
+        "BGE",
+        "BMB",
+        "FTNS",
+        "ESRM",
+        "CPS",
+        "Business Administration",
+        "Management",
+        "Accounting",
+        "Economics"
+    ];
+
+        var deptArray1 = [
+        "Department",
+        "CSE",
+        "ICT",
+        "TE",
+        "Chemistry",
+        "Mathematics",
+        "Physics",
+        "Statistics",
+        "Pharmacy",
+        "BGE",
+        "BMB",
+        "FTNS",
+        "ESRM",
+        "CPS",
+        "Business Administration",
+        "Management",
+        "Accounting",
+        "Economics"
+    ];
+
+    for(var i in deptArray) {
+        var newOption = document.createElement("option");
+        newOption.value = deptArray[i];
+        newOption.innerHTML = deptArray[i];
+        department.options.add(newOption);
+    }
+
+    for(var i in deptArray1) {
+        var newOption = document.createElement("option");
+        newOption.value = deptArray1[i];
+        newOption.innerHTML = deptArray1[i];
+        department1.options.add(newOption);
+    }
+
+    function Semester() {
+        var department = document.getElementById("dept").value;
+        var semester = document.getElementById("semester");
+        semester.innerHTML = "";
+        var semArray = ["Select"];
+        if (department != "Course For" && department != "Pharmacy") {
+            semArray = [
+                "Semester",
+                "1st",
+                "2nd",
+                "3rd",
+                "4th",
+                "5th",
+                "6th",
+                "7th",
+                "8th"
+            ];
+        }
+        if (department != "Course For" && department == "Pharmacy") {
+            semArray = [
+                "Semester",
+                "1st",
+                "2nd",
+                "3rd",
+                "4th",
+                "5th",
+                "6th",
+                "7th",
+                "8th",
+                "9th",
+                "10th"
+            ];
+        }
+
+        for(var i in semArray) {
+            var newOption = document.createElement("option");
+            newOption.value = semArray[i];
+            newOption.innerHTML = semArray[i];
+            semester.options.add(newOption);
+        }
+    }
+
+        function Semester1() {
+        var department1 = document.getElementById("dept1").value;
+        var semester1 = document.getElementById("semester1");
+        semester1.innerHTML = "";
+        var semArray = ["Select"];
+        if (department1 != "Department" && department1 != "Pharmacy") {
+            semArray = [
+                "Semester",
+                "1st",
+                "2nd",
+                "3rd",
+                "4th",
+                "5th",
+                "6th",
+                "7th",
+                "8th"
+            ];
+        }
+        if (department1 != "Course For" && department1 == "Pharmacy") {
+            semArray = [
+                "Semester",
+                "1st",
+                "2nd",
+                "3rd",
+                "4th",
+                "5th",
+                "6th",
+                "7th",
+                "8th",
+                "9th",
+                "10th"
+            ];
+        }
+
+        for(var i in semArray) {
+            var newOption = document.createElement("option");
+            newOption.value = semArray[i];
+            newOption.innerHTML = semArray[i];
+            semester1.options.add(newOption);
+        }
+    }
+
+    function CourseCode() {
+        var department = document.getElementById("dept").value;
+        var semester = document.getElementById("semester").value;
+        var courseCode = document.getElementById("courseCode");
+        courseCode.innerHTML = "";
+        var courseArray = ["Select"];
+        if (department == "CSE") {
+            if (semester == "1st") {
+                courseArray = [
+                    "Course Code",
+                    "CSE-1101",
+                    "CSE-1102",
+                    "CSE-1103",
+                    "CSE-1104",
+                    "CSE-1105",
+                    "CSE-1106",
+                    "CSE-1107",
+                ];
+            }
+            if (semester == "2nd") {
+                courseArray = [
+                    "Course Code",
+                    "CSE-1201",
+                    "CSE-1202",
+                    "CSE-1203",
+                    "CSE-1204",
+                    "CSE-1205",
+                    "CSE-1206",
+                    "CSE-1207",
+                ];
+            }
+            if (semester == "3rd") {
+                courseArray = [
+                    "Course Code",
+                    "CSE-2101",
+                    "CSE-2102",
+                    "CSE-2103",
+                    "CSE-2104",
+                    "CSE-2105",
+                    "CSE-2106",
+                    "CSE-2107",
+                ];
+            }
+            if (semester == "4th") {
+                courseArray = [
+                    "Course Code",
+                    "CSE-2201",
+                    "CSE-2202",
+                    "CSE-2203",
+                    "CSE-2204",
+                    "CSE-2205",
+                    "CSE-2206",
+                    "CSE-2207",
+                ];
+            }
+        }
+
+        if (department == "ICT") {
+            if (semester == "1st") {
+                courseArray = [
+                    "Course Code",
+                    "ICT-1101",
+                    "ICT-1102",
+                    "ICT-1103",
+                    "ICT-1104",
+                    "ICT-1105",
+                    "ICT-1106",
+                    "ICT-1107",
+                ];
+            }
+            if (semester == "2nd") {
+                courseArray = [
+                    "Course Code",
+                    "ICT-1201",
+                    "ICT-1202",
+                    "ICT-1203",
+                    "ICT-1204",
+                    "ICT-1205",
+                    "ICT-1206",
+                    "ICT-1207",
+                ];
+            }
+            if (semester == "3rd") {
+                courseArray = [
+                    "Course Code",
+                    "ICT-2101",
+                    "ICT-2102",
+                    "ICT-2103",
+                    "ICT-2104",
+                    "ICT-2105",
+                    "ICT-2106",
+                    "ICT-2107",
+                ];
+            }
+            if (semester == "4th") {
+                courseArray = [
+                    "Course Code",
+                    "ICT-2201",
+                    "ICT-2202",
+                    "ICT-2203",
+                    "ICT-2204",
+                    "ICT-2205",
+                    "ICT-2206",
+                    "ICT-2207",
+                ];
+            }
+        }
+
+        for(var i in courseArray) {
+            var newOption = document.createElement("option");
+            newOption.value = courseArray[i];
+            newOption.innerHTML = courseArray[i];
+            courseCode.options.add(newOption);
+        }
+    }
+
+    function Day() {
+        var courseCode = document.getElementById("courseCode").value;
+        var day = document.getElementById("day");
+        day.innerHTML = "";
+
+        var dayArray = ["Select"];
+        if (courseCode != "Select" && courseCode != "Course Code") {
+            dayArray = [
+                "Day",
+                "Saturday",
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+            ];
+        }
+        for(var i in dayArray) {
+            var newOption = document.createElement("option");
+            newOption.value = dayArray[i];
+            newOption.innerHTML = dayArray[i];
+            day.options.add(newOption);
+        }
+    }
+
+    function StartTime() {
+        var day = document.getElementById("day").value;
+        var startTime = document.getElementById("startTime");
+        startTime.innerHTML = "";
+
+        var stArray = ["Select"];
+        if (day != "Select" && courseCode != "Day") {
+            stArray = [
+                "Start Time",
+                "8:00 AM",
+                "9:00 AM",
+                "10:00 AM",
+                "11:00 AM",
+                "12:00 PM",
+                "2:00 PM",
+                "3:00 PM",
+                "4:00 PM",
+                "5:00 PM"
+            ];
+        }
+        for(var i in stArray) {
+            var newOption = document.createElement("option");
+            newOption.value = stArray[i];
+            newOption.innerHTML = stArray[i];
+            startTime.options.add(newOption);
+        }
+    }
+
+    function EndTime() {
+        var startTime = document.getElementById("startTime").value;
+        var endTime = document.getElementById("endTime");
+        endTime.innerHTML = "";
+
+        var etArray = ["Select"];
+        if (startTime != "Select" && startTime != "Start Time") {
+            if (startTime == "8:00 AM") {
+                etArray = [
+                "End Time",
+                "8:50 AM",
+                "9:50 AM",
+                "10:50 AM",
+                "11:50 AM",
+                "12:50 PM"
+                ];
+            }
+            else if (startTime == "9:00 AM") {
+                etArray = [
+                "End Time",
+                "9:50 AM",
+                "10:50 AM",
+                "11:50 AM",
+                "12:50 PM"
+                ];
+            }
+            else if (startTime == "10:00 AM") {
+                etArray = [
+                "End Time",
+                "10:50 AM",
+                "11:50 AM",
+                "12:50 PM"
+                ];
+            }
+             else if (startTime == "11:00 AM") {
+                etArray = [
+                "End Time",
+                "11:50 AM",
+                "12:50 PM"
+                ];
+            }
+             else if (startTime == "12:00 PM") {
+                etArray = [
+                "End Time",
+                "12:50 PM",
+                ];
+            }
+             else if (startTime == "2:00 PM") {
+                etArray = [
+                "End Time",
+                "2:50 PM",
+                "3:50 PM",
+                "4:50 PM",
+                "5:50 PM"
+                ];
+            }
+            else if (startTime == "3:00 PM") {
+                etArray = [
+                "End Time",
+                "3:50 PM",
+                "4:50 PM",
+                "5:50 PM"
+                ];
+            }
+            else if (startTime == "4:00 PM") {
+                etArray = [
+                "End Time",
+                "4:50 PM",
+                "5:50 PM"
+                ];
+            }
+            else if (startTime == "5:00 PM") {
+                etArray = [
+                "End Time",
+                "5:50 PM"
+                ];
+            }
+        }
+        for(var i in etArray) {
+            var newOption = document.createElement("option");
+            newOption.value = etArray[i];
+            newOption.innerHTML = etArray[i];
+            endTime.options.add(newOption);
+        }
+    }
+
+    function RoomNo() {
+        var endTime = document.getElementById("endTime").value;
+        var roomNo = document.getElementById("roomNo");
+        roomNo.innerHTML = "";
+
+        var rnArray = ["Select"];
+        if (endTime != "Select" && endTime != "Start Time") {
+            rnArray = [
+                "Room No",
+                "CSE-201",
+                "CSE-202",
+                "CSE-LAB1",
+                "CSE-LAB2",
+                "CSE-LAB3",
+                "ICT-201",
+                "ICT-202",
+                "ICT-LAB1",
+                "ICT-LAB2",
+                "ICT-LAB3",
+            ];
+        }
+        for(var i in rnArray) {
+            var newOption = document.createElement("option");
+            newOption.value = rnArray[i];
+            newOption.innerHTML = rnArray[i];
+            roomNo.options.add(newOption);
+        }
+    }
+
+</script>
+
+<!-- JS here -->
+<script th:src="@{${cssLinkPrefix} + 'js/js/vendor/modernizr-3.5.0.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/vendor/jquery-1.12.4.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/popper.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/bootstrap.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/owl.carousel.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/isotope.pkgd.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/ajax-form.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/waypoints.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.counterup.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/imagesloaded.pkgd.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/scrollIt.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.scrollUp.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/wow.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/nice-select.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.slicknav.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.magnific-popup.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/plugins.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/gijgo.min.js'}"></script>
+
+<!--contact js-->
+<script th:src="@{${cssLinkPrefix} + 'js/js/contact.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.ajaxchimp.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.form.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/jquery.validate.min.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/mail-script.js'}"></script>
+<script th:src="@{${cssLinkPrefix} + 'js/js/main.js'}"></script>
+
+</body>
+
+</html>
